@@ -4,10 +4,10 @@ import google.generativeai as genai
 import requests
 import json
 
-# Set up page configuration
-st.set_page_config(page_title="Universal AI API Tester", layout="centered", page_icon="🤖")
 
-# Custom CSS for better UI (optional but nice)
+st.set_page_config(page_title="Universal AI API Key Tester", layout="centered", )
+
+
 st.markdown("""
     <style>
     .main {
@@ -22,11 +22,11 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Title
-st.title("Universal AI API Tester")
+
+st.title("Universal AI API key Tester")
 st.markdown("---")
 
-# Header Section: API Key and Provider Selection
+
 col1, col2 = st.columns([2, 1])
 
 with col1:
@@ -35,18 +35,18 @@ with col1:
 with col2:
     provider = st.selectbox("Provider", ["OpenAI", "OpenRouter", "Gemini"])
 
-# Initialize session state for chat history
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Function to call OpenAI
+
 def call_openai(api_key, messages):
     """
     Calls OpenAI's Chat Completion API.
     """
     try:
         client = openai.OpenAI(api_key=api_key)
-        # We use gpt-3.5-turbo as a lightweight model for testing
+        
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": m["role"], "content": m["content"]} for m in messages]
@@ -55,7 +55,7 @@ def call_openai(api_key, messages):
     except Exception as e:
         return f"🚨 Error (OpenAI): {str(e)}"
 
-# Function to call OpenRouter
+
 def call_openrouter(api_key, messages):
     """
     Calls OpenRouter's API endpoint.
@@ -63,11 +63,11 @@ def call_openrouter(api_key, messages):
     try:
         headers = {
             "Authorization": f"Bearer {api_key}",
-            "HTTP-Referer": "https://localhost",  # OpenRouter requirement
+            "HTTP-Referer": "https://localhost",  
             "X-Title": "Universal AI API Tester",
             "Content-Type": "application/json"
         }
-        # Using a standard model for testing
+        
         data = {
             "model": "openai/gpt-3.5-turbo",
             "messages": [{"role": m["role"], "content": m["content"]} for m in messages]
@@ -87,19 +87,16 @@ def call_openrouter(api_key, messages):
     except Exception as e:
         return f"🚨 Error (OpenRouter): {str(e)}"
 
-# Function to call Gemini
+
 def call_gemini(api_key, messages):
     """
     Calls Google's Gemini API.
     """
     try:
         genai.configure(api_key=api_key)
-        # Using gemini-1.5-flash for fast testing
         model = genai.GenerativeModel('gemini-1.5-flash')
         
-        # Prepare history for Gemini
-        # Gemini expects history as a list of dictionaries with 'role' and 'parts'
-        # Roles are 'user' and 'model'
+        
         gemini_history = []
         for m in messages[:-1]: # All except the last one
             role = "user" if m["role"] == "user" else "model"
@@ -112,17 +109,17 @@ def call_gemini(api_key, messages):
     except Exception as e:
         return f"🚨 Error (Gemini): {str(e)}"
 
-# Chat Interface Section
+
 st.markdown("### Chat Interface")
 
-# Display chat history
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
 # User input
 if prompt := st.chat_input("Type your message here..."):
-    # 1. Add user message to state and display
+    
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
