@@ -1,64 +1,55 @@
 # Universal AI API Tester
 
-Universal AI API Tester is a streamlined, Python-based utility designed for the rapid verification and testing of Artificial Intelligence API keys. It provides a unified interface to interact with multiple AI providers, ensuring that credentials are valid and the respective services are operational.
+A high-performance, technically advanced web application for instant validation of AI API keys. Built with React, TypeScript, and Tailwind CSS.
 
-## Core Features
+## Architecture
 
-- Unified Provider Support: Single interface for OpenAI, OpenRouter, and Google Gemini.
-- Real-time Verification: Immediate feedback on API key validity through live chat interactions.
-- Session Management: Localized chat history maintained during the application lifecycle.
-- Error Diagnostics: Detailed reporting of request failures, authentication errors, and service timeouts.
-- Secure Interaction: API keys are used for session-based authentication and are not persisted to disk.
+The application is designed as a secure, client-side only tool. All API requests are dispatched directly from the user's browser to the respective provider endpoints, ensuring zero data persistence of sensitive API keys.
 
-## Technical Architecture
+- **Frontend**: React 19 + TypeScript
+- **Styling**: Tailwind CSS with Framer Motion for high-fidelity animations
+- **Icons**: Lucide React
+- **HTTP Client**: Axios
+- **Build Tool**: Vite
 
-The application is built using the Streamlit framework, leveraging its reactive state management for the user interface. It integrates directly with provider-specific SDKs and REST endpoints:
+## Key Features
 
-- OpenAI: Integration via the official OpenAI Python library.
-- OpenRouter: Implementation using standard HTTP/JSON protocols for broad model compatibility.
-- Gemini: Integration via the Google Generative AI SDK.
+- **Multi-Provider Support**: Seamless integration with OpenAI, Gemini (Google), and OpenRouter.
+- **Zero-Storage Security**: API keys are processed in-memory and never stored on any server or local storage.
+- **Real-time Terminal**: A simulated terminal interface for immediate feedback on API responses.
+- **Responsive Design**: Optimized for both desktop and mobile environments with a modern, dark-themed UI.
 
-## Prerequisites
+## Installation
 
-- Python 3.8 or higher
-- A valid API key from OpenAI, OpenRouter, or Google Gemini
+### Prerequisites
 
-## Installation and Setup
+- Node.js (v18.0.0 or higher)
+- npm or yarn
 
-1. Clone the repository to your local environment.
-2. Create a virtual environment:
+### Setup
+
+1. Clone the repository:
    ```bash
-   python -m venv venv
-   ```
-3. Activate the virtual environment:
-   - Windows: `.\venv\Scripts\activate`
-   - Unix/macOS: `source venv/bin/activate`
-4. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
+   git clone https://github.com/your-repo/api-tester.git
+   cd api-tester
    ```
 
-## Usage
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-To launch the application, execute the following command from the project root:
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-streamlit run app.py
-```
+## Security Audit
 
-Once the web interface initializes:
-1. Input the API key in the designated field.
-2. Select the corresponding provider from the dropdown menu.
-3. Submit a query via the chat interface to verify the connection.
+- **End-to-End Encryption**: All API calls utilize HTTPS (TLS 1.2+).
+- **Environment Isolation**: Local development environment is protected via `.gitignore`.
+- **Secret Management**: No hardcoded API keys or sensitive metadata within the source code.
 
-## Dependency Specifications
+## License
 
-The project relies on the following primary libraries:
-- streamlit: UI framework and state management.
-- openai: Communication with OpenAI services.
-- google-generativeai: Interface for Google Gemini models.
-- requests: Protocol handling for OpenRouter API.
-
-## Security and Privacy
-
-This tool is designed for testing purposes. API keys are handled within the Streamlit session state and are used only for making direct requests to the specified providers. Users should ensure they are running the application in a secure environment.
+This project is licensed under the MIT License.
